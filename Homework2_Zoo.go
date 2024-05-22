@@ -17,28 +17,28 @@ func main() {
 	println("-----------------------------------------------------------------------------------------------")
 
 	foxClass := Classification{
-		Animal: Animal{AnimalType: "fox", AnimalName: "Dixy", AnimalAge: 2, AnimalColour: "red", AnimalLocation: "Section1"},
+		Animal: fox,
 		Class:  "Predator",
 		Meal:   "Meat",
 	}
 	foxClass.printClass()
 
 	wolfClass := Classification{
-		Animal: Animal{AnimalType: "wolf", AnimalName: "Richard", AnimalAge: 5, AnimalColour: "grey", AnimalLocation: "Section2"},
+		Animal: wolf,
 		Class:  "Predator",
 		Meal:   "Meat",
 	}
 	wolfClass.printClass()
 
 	duckClass := Classification{
-		Animal: Animal{AnimalType: "duck", AnimalName: "Daisy", AnimalAge: 8, AnimalColour: "white", AnimalLocation: "Swimming pool"},
+		Animal: duck,
 		Class:  "Herbivore",
 		Meal:   "Plants",
 	}
 	duckClass.printClass()
 
 	elephantClass := Classification{
-		Animal: Animal{AnimalType: "elephant", AnimalName: "Edward", AnimalAge: 20, AnimalColour: "grey", AnimalLocation: "Garden"},
+		Animal: elephant,
 		Class:  "Herbivore",
 		Meal:   "Plants",
 	}
@@ -46,7 +46,17 @@ func main() {
 
 	println("-----------------------------------------------------------------------------------------------")
 
-	findDuck()
+	Mike := Catcher{Name: "Mike", Animal: fox}
+	Mike.CatchAnimal()
+
+	Olson := Catcher{Name: "Olson", Animal: wolf}
+	Olson.CatchAnimal()
+
+	Rob := Catcher{Name: "Rob", Animal: duck}
+	Rob.CatchAnimal()
+
+	Nick := Catcher{Name: "Nick", Animal: elephant}
+	Nick.CatchAnimal()
 
 }
 
@@ -72,8 +82,11 @@ func (c Classification) printClass() {
 	fmt.Printf("%s %s by the name %s is %s and eats %s\n", c.AnimalColour, c.AnimalType, c.AnimalName, c.Class, c.Meal)
 }
 
-func findDuck() {
-	var ducklocation string = "Garden"
-	var newDuckLocation *string = &ducklocation
-	println("Duck is here:", *newDuckLocation)
+type Catcher struct {
+	Name string
+	Animal
+}
+
+func (h Catcher) CatchAnimal() {
+	fmt.Printf("Catcher %s caught %s (%s) at %s\n", h.Name, h.AnimalName, h.AnimalType, h.AnimalLocation)
 }
