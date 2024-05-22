@@ -5,14 +5,16 @@ import "fmt"
 type Meal string
 
 func main() {
-	fox := Animal{AnimalType: "fox", AnimalName: "Dixy", AnimalAge: 2, AnimalColour: "red", AnimalLocation: "Section1"}
+	fox := Animal{Type: "fox", Name: "Dixy", Age: 2, Colour: "red", Location: "Section1"}
 	fox.print()
-	wolf := Animal{AnimalType: "wolf", AnimalName: "Richard", AnimalAge: 5, AnimalColour: "grey", AnimalLocation: "Section2"}
+	wolf := Animal{Type: "wolf", Name: "Richard", Age: 5, Colour: "grey", Location: "Section2"}
 	wolf.print()
-	var duck = Animal{AnimalType: "duck", AnimalName: "Daisy", AnimalAge: 8, AnimalColour: "white", AnimalLocation: "Swimming pool"}
+	var duck = Animal{Type: "duck", Name: "Daisy", Age: 8, Colour: "white", Location: "Swimming pool"}
 	duck.print()
-	var elephant = Animal{AnimalType: "elephant", AnimalName: "Edward", AnimalAge: 20, AnimalColour: "grey", AnimalLocation: "Garden"}
+	var elephant = Animal{Type: "elephant", Name: "Edward", Age: 20, Colour: "grey", Location: "Garden"}
 	elephant.print()
+	panda := Animal{Type: "panda", Name: "Saya", Age: 15, Colour: "black/white", Location: "Office"}
+	panda.print()
 
 	println("-----------------------------------------------------------------------------------------------")
 
@@ -44,32 +46,42 @@ func main() {
 	}
 	elephantClass.printClass()
 
+	pandaClass := Classification{
+		Animal: panda,
+		Class:  "Herbivore",
+		Meal:   "Plants",
+	}
+	pandaClass.printClass()
+
 	println("-----------------------------------------------------------------------------------------------")
 
-	Mike := Catcher{Name: "Mike", Animal: fox}
-	Mike.CatchAnimal()
+	mike := Catcher{Name: "Mike"}
+	mike.CatchAnimal(fox)
 
-	Olson := Catcher{Name: "Olson", Animal: wolf}
-	Olson.CatchAnimal()
+	olson := Catcher{Name: "Olson"}
+	olson.CatchAnimal(wolf)
 
-	Rob := Catcher{Name: "Rob", Animal: duck}
-	Rob.CatchAnimal()
+	rob := Catcher{Name: "Rob"}
+	rob.CatchAnimal(duck)
 
-	Nick := Catcher{Name: "Nick", Animal: elephant}
-	Nick.CatchAnimal()
+	nick := Catcher{Name: "Nick"}
+	nick.CatchAnimal(elephant)
+
+	george := Catcher{Name: "George"}
+	george.CatchAnimal(panda)
 
 }
 
 type Animal struct {
-	AnimalType     string
-	AnimalName     string
-	AnimalAge      int
-	AnimalColour   string
-	AnimalLocation string
+	Type     string
+	Name     string
+	Age      int
+	Colour   string
+	Location string
 }
 
 func (a Animal) print() {
-	fmt.Printf("Animal %s %s, by the name %s, %d years old is lost in area: %s \n", a.AnimalColour, a.AnimalType, a.AnimalName, a.AnimalAge, a.AnimalLocation)
+	fmt.Printf("Animal %s %s, by the name %s, %d years old is lost in area: %s \n", a.Colour, a.Type, a.Name, a.Age, a.Location)
 }
 
 type Classification struct {
@@ -79,14 +91,13 @@ type Classification struct {
 }
 
 func (c Classification) printClass() {
-	fmt.Printf("%s %s by the name %s is %s and eats %s\n", c.AnimalColour, c.AnimalType, c.AnimalName, c.Class, c.Meal)
+	fmt.Printf("%s %s by the name %s is %s and eats %s\n", c.Colour, c.Type, c.Name, c.Class, c.Meal)
 }
 
 type Catcher struct {
 	Name string
-	Animal
 }
 
-func (h Catcher) CatchAnimal() {
-	fmt.Printf("Catcher %s caught %s (%s) at %s\n", h.Name, h.AnimalName, h.AnimalType, h.AnimalLocation)
+func (h Catcher) CatchAnimal(a Animal) {
+	fmt.Printf("Catcher %s caught %s (%s) at %s\n", h.Name, a.Name, a.Type, a.Location)
 }
